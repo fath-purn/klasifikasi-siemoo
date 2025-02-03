@@ -3,13 +3,6 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import requests
-from io import BytesIO
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-app = Flask(__name__)
 
 model_path = 'custom_model_sapi.h5'
 model = load_model(model_path)  # Load model menggunakan load_model
@@ -52,24 +45,6 @@ def preprocess_image_from_url(url):
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Periksa header Authorization
-        auth_header = request.headers.get('Authorization')
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return jsonify({'error': 'Header Authorization tidak valid'}), 401
-            
-        # Ambil token dari header
-        token = auth_header.split(' ')[1]
-        
-        # Bandingkan dengan kode di .env
-        kode_env = os.getenv('kode')
-
-        if token != str(kode_env):
-            return jsonify({
-                'success': False,
-                'message': 'Kode tidak valid',
-                'data': None
-            }), 401
-
         # Get URL dari request body
         data = request.get_json()
         if not data:
