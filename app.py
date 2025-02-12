@@ -4,6 +4,8 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import requests
 
+app = Flask(__name__)
+
 model_path = 'custom_model_sapi.h5'
 model = load_model(model_path)  # Load model menggunakan load_model
 
