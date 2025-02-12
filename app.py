@@ -3,6 +3,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import requests
+from io import BytesIO
+import os
 
 app = Flask(__name__)
 
